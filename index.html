@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cardápio A4 · Restaurante Marinheiro’s</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Manrope:wght@400;500;600&display=swap"
+   rel="stylesheet"
+  />
+  <style>
+   :root {
+    font-family: 'Manrope', 'Inter', 'Segoe UI', system-ui, sans-serif;
+    color: #3f2008;
+   }
+
+   *,
+   *::before,
+   *::after {
+    box-sizing: border-box;
+   }
+
+   @page {
+    size: A4;
+    margin: 1.5cm 3cm;
+   }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #ffffff;
+        padding: 1.4cm 0;
+        color: #3f2008;
+      }
+
+   main.menu-book {
+    width: 100%;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 0 1cm;
+   }
+
+   .page {
+    position: relative;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 2cm 2.4cm;
+    min-height: 28cm;
+    margin-bottom: 1.5cm;
+    box-shadow: 0 30px 60px rgba(14, 8, 4, 0.12);
+   }
+
+   .page:last-child {
+    margin-bottom: 0;
+   }
+
+   @media print {
+    body {
+     background: transparent;
+     padding: 0;
+    }
+
+    main.menu-book {
+     max-width: 100%;
+     padding: 0;
+    }
+
+    .page {
+     margin: 0;
+     min-height: auto;
+     padding: 0;
+     box-shadow: none;
+     border-radius: 0;
+     page-break-after: always;
+    }
+
+    .page:last-child {
+     page-break-after: auto;
+    }
+   }
+
+   .page-header {
+    text-align: center;
+    margin-bottom: 0.5cm;
+   }
+
+   .page-header img {
+    width: 120px;
+    margin: 0 auto 0.2cm;
+    transform: translateX(-0.12cm);
+   }
+
+   .page:not(:first-of-type) .page-header {
+    margin-bottom: 0.35cm;
+   }
+
+   .serves-two {
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(63, 32, 8, 0.801);
+   }
+
+   .page-header .serves-two {
+    display: block;
+    margin: 0.7cm auto 0.7cm;
+   }
+
+   .page-header + .menu-section {
+    margin-top: 0.3cm;
+   }
+
+      .menu-section {
+        margin-bottom: 0.5cm;
+      }
+
+      .menu-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .menu-columns {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(6cm, 1fr));
+        gap: 1cm 1.4cm;
+      }
+
+   .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin: 0 0 0.7cm;
+   }
+
+   .menu-item {
+    margin-bottom: 0.65cm;
+   }
+
+   .item-line {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.3cm;
+    margin-bottom: 0.16cm;
+   }
+
+   .item-name {
+    flex: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border-bottom: 1px dotted rgba(63, 32, 8, 0.35);
+    padding-bottom: 0.08cm;
+   }
+
+   .item-price {
+    font-weight: 600;
+    white-space: nowrap;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+   }
+
+   .price-cents {
+    font-size: 0.85rem;
+    vertical-align: super;
+    margin-left: 0.05em;
+    opacity: 0.7;
+   }
+
+   .item-desc,
+   .item-extra {
+    font-size: 0.95rem;
+    color: rgba(63, 32, 8, 0.9);
+    line-height: 1.25;
+    margin: 0;
+   }
+
+   .item-desc {
+    margin-bottom: 0.16cm;
+   }
+
+   .item-extra {
+    margin-top: 0;
+   }
+
+   .item-badge {
+    display: inline-block;
+    margin-left: 0.25cm;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+   }
+
+      .notice-card,
+      .page-note {
+        /*border: 1px solid rgba(63, 32, 8, 0.2);*/
+        padding: 0.6cm 0.8cm;
+        /*border-radius: 4px;*/
+        font-size: 0.95rem;
+        color: rgba(63, 32, 8, 0.85);
+        background: rgba(246, 237, 222, 0.6);
+        text-align: left;
+      }
+
+      .notice-card {
+        text-align: center;
+        margin: 0 auto 0.4cm;
+      }
+
+      .page-note {
+        /*border-style: dashed;*/
+        margin-bottom: 0;
+        text-align: center;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .page-with-note {
+        padding-bottom: 4cm;
+      }
+
+   .notice-card strong {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+   }
+
+   .qr-panel {
+    margin: 1cm auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8cm;
+    max-width: 16cm;
+    padding: 0.5cm 0.7cm;
+   }
+
+      .qr-panel img {
+        width: 5cm;
+        height: 5cm;
+        border: none;
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: none;
+      }
+
+   .qr-text {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(63, 32, 8, 0.75);
+    line-height: 1.4;
+    max-width: 6cm;
+   }
+
+   .qr-text p {
+    margin: 0;
+   }
+
+   .qr-text strong {
+    display: block;
+    letter-spacing: 0.16em;
+    margin-top: 0.1cm;
+   }
+
+   .flag-row {
+    display: flex;
+    gap: 0.25cm;
+    margin-top: 0.25cm;
+    justify-content: center;
+   }
+
+   .flag-row svg {
+    width: 28px;
+    height: auto;
+    border: 1px solid rgba(63, 32, 8, 0.2);
+    border-radius: 3px;
+    flex-shrink: 0;
+   }
+
+   .simple-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+   }
+
+   .simple-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.4cm;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 0.3cm;
+    border-bottom: 1px dotted rgba(63, 32, 8, 0.3);
+    padding-bottom: 0.1cm;
+   }
+
+      .page-beverages {
+        background: #fff;
+        border-color: rgba(63, 32, 8, 0.15);
+        box-shadow: none;
+      }
+
+      .page-beverages .menu-item {
+        margin-bottom: 0.65cm;
+      }
+
+      .page-beverages .item-name {
+        margin-bottom: 0.1cm;
+        display: inline-block;
+      }
+
+      .page-beverages .item-desc .item-extra {
+        display: block;
+        margin-bottom: 0.02cm;
+      }
+
+      .page-beverages .price-list {
+        margin: 0.2cm 0 0;
+      }
+
+      .page-beverages .price-list div {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.4cm;
+        font-size: 0.95rem;
+        margin-bottom: 0.02cm;
+        align-items: baseline;
+      }
+
+      .page-beverages .price-list .item-extra {
+        flex: 1;
+        display: inline-block;
+      }
+  </style>
+ </head>
+ <body>
+  <main class="menu-book">
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+     <p class="serves-two">Pratos para duas pessoas</p>
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Entradas</h2>
+     <ul class="simple-list">
+      <div class="menu-item"><div class="item-line"><span class="item-name">Camarão à milanesa</span><span class="item-price">132<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Camarão ao alho e óleo sem casca</span><span class="item-price">145<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Lula à milanesa</span><span class="item-price">86<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Torpedo de siri (2 unidades)</span><span class="item-price">39<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Isca de frango</span><span class="item-price">62<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Isca de peixe</span><span class="item-price">78<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Peixe frito em postas</span><span class="item-price">85<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Aipim frito</span><span class="item-price">40<span class="price-cents">,00</span></span></div></div>
+      <div class="menu-item"><div class="item-line"><span class="item-name">Batata Frita</span><span class="item-price">45<span class="price-cents">,00</span></span></div></div>
+    </section>
+    <div class="qr-panel">
+      <img
+      src="data:image/png;base64,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"
+      alt="QR code for multilingual menu"
+     />
+     <div class="qr-text">
+      <p>
+       Scan for menu<br />
+       <strong>English · Español</strong>
+      </p>
+      <div class="flag-row" aria-label="English, Spanish and Portuguese versions">
+       <svg viewBox="0 0 60 40" role="img" aria-label="Flag of the United States">
+        <rect width="60" height="40" fill="#b22234" />
+        <g fill="#ffffff">
+         <rect y="4" width="60" height="4" />
+         <rect y="12" width="60" height="4" />
+         <rect y="20" width="60" height="4" />
+         <rect y="28" width="60" height="4" />
+         <rect y="36" width="60" height="4" />
+        </g>
+        <rect width="26" height="18" fill="#3c3b6e" />
+       </svg>
+       <svg viewBox="0 0 60 40" role="img" aria-label="Flag of Spain">
+        <rect width="60" height="40" fill="#aa151b" />
+        <rect y="10" width="60" height="20" fill="#f1bf00" />
+       </svg>
+   </section>
+
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Camarao</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Camarão Catupiry</span>
+       <span class="item-price"> 217<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Camarões refogados com manteiga, cebola, molho branco e Catupiry, cobertos com queijo muçarela
+       e parmesão.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Camarão à Grega</span>
+       <span class="item-price"> 207<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Camarão à milanesa gratinado com queijo muçarela e parmesão.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz à grega, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Camarão à milanesa</span>
+       <span class="item-price">193<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Camarão à milanesa tradicional.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Camarão à Moda Marinheiro’s</span>
+       <span class="item-price">217<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Camarões refogados com cebola, tomate, azeitonas e creme de leite, finalizados com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Strogonoff de camarão</span>
+       <span class="item-price">217<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Camarões servidos em um molho especial de creme de leite e champignon, finalizados com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Camarão à Praia Brava</span>
+       <span class="item-price">239<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Camarões refogados com arroz, queijo, ervilha, molho branco e Catupiry, finalizados com queijo muçarela,
+       queijo parmesão e camarões à milanesa.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Fritas e salada.</p>
+     </div>
+    </section>
+   </section>
+
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Lula</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Lula à milanesa</span>
+       <span class="item-price">159<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Lula à milanesa tradicional.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </section>
+    <section class="menu-section">
+     <h2 class="section-title">Salmao</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Salmão Grelhado</span>
+       <span class="item-price">199<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de salmão grelhado na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, legumes salteados e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Salmão ao molho de alcaparras</span>
+       <span class="item-price">219<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de salmão grelhado na chapa, servido com molho de alcaparras.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Salmão à Belle Meunière</span>
+       <span class="item-price">238<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de salmão grelhado na chapa, servido com molho especial de alcaparras, champignon, camarão e shoyu.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Salmão ao molho de laranja</span>
+       <span class="item-price">240<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de salmão grelhado na chapa, servido com molho especial de laranja, mel e cabernet branco.
+       Finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, legumes salteados e salada.</p>
+     </div>
+    </section>
+   </section>
+
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Cacarolas e Moquecas</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Caçarola de frutos do mar</span>
+       <span class="item-price">217<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Frutos do mar ao molho de tomate, cebola, pimentões, azeite de dendê e leite de coco.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Moqueca de peixes</span>
+       <span class="item-price">214<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peixe ao molho de tomate, cebola, pimentões, azeite de dendê e leite de coco.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Moqueca de peixes com camarão</span>
+       <span class="item-price">225<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peixe e camarões ao molho de tomate, cebola, azeite de dendê e leite de coco.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </section>
+    <section class="menu-section">
+     <h2 class="section-title">Anchova</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Anchova grelhada</span>
+       <span class="item-price">148<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Anchova grelhada na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Anchova ao molho de alcaparras</span>
+       <span class="item-price">168<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Anchova grelhada na chapa, servida com molho de alcaparras.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Anchova à Belle Meunière</span>
+       <span class="item-price">187<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Anchova grelhada na chapa, servida com molho especial de alcaparras, champignon, camarão e shoyu.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+    </section>
+   </section>
+
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Linguado</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Linguado grelhado</span>
+       <span class="item-price">184<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de linguado grelhado na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Linguado ao molho de alcaparras</span>
+       <span class="item-price">204<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de linguado grelhado na chapa, servido com molho de alcaparras.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Linguado à Belle Meunière</span>
+       <span class="item-price">223<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de linguado grelhado na chapa, servido com molho especial de alcaparras, champignon, camarão e shoyu.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Linguado ao molho de camarão</span>
+       <span class="item-price">213<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de linguado à milanesa, servido com molho de camarão, finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Linguado à Moda Marinheiro’s</span>
+       <span class="item-price">253<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de linguado grelhado na chapa, servido com molho especial de cebola, tomate, azeitonas e creme de leite.
+       Finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </section>
+   </section>
+
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Congrio Rosa</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Congrio Rosa grelhado</span>
+       <span class="item-price">219<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de Congrio Rosa grelhado na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Congrio Rosa ao molho de alcaparras</span>
+       <span class="item-price">239<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de Congrio Rosa grelhado na chapa, servido com molho de alcaparras.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Congrio Rosa à Belle Meunière</span>
+       <span class="item-price">258<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de Congrio Rosa grelhado na chapa, servido com molho especial de alcaparras, champignon, camarão e shoyu.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Congrio Rosa ao molho de camarão</span>
+       <span class="item-price">248<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de Congrio Rosa à milanesa, servido com molho de camarão e finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Congrio Rosa à Moda Marinheiro’s</span>
+       <span class="item-price">269<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de Congrio Rosa grelhado na chapa, servido com molho especial de cebola, tomate, azeitonas e creme de leite.
+       Finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </section>
+   </section>
+
+
+   <section class="page page-with-note">
+   <div class="page-header">
+    <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+   </div>
+   <section class="menu-section">
+    <h2 class="section-title">File de peixe</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Peixe grelhado</span>
+       <span class="item-price">129<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de peixe grelhado na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Peixe ao molho de alcaparras</span>
+       <span class="item-price">149<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peixe grelhado na chapa, servido com molho de alcaparras.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, batata sauté e pirão.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Peixe à milanesa</span>
+       <span class="item-price">129<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de peixe à milanesa tradicional.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Peixe ao molho de camarão</span>
+       <span class="item-price">158<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peixe à milanesa, servido com molho de camarão e finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Peixe à Moda Marinheiro’s</span>
+       <span class="item-price">169<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peixe grelhado na chapa, servido com um molho especial de cebola, tomate, azeitonas e creme de leite.
+       Finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </section>
+    <p class="page-note">Taxa de serviço: 10%, integralmente da equipe</p>
+   </section>
+
+   <section class="page page-with-note">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <div class="menu-section">
+     <h2 class="section-title">Carne</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Filé mignon grelhado</span>
+       <span class="item-price">174<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé mignon grelhado na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Filé mignon ao molho Madeira</span>
+       <span class="item-price">207<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé mignon grelhado na chapa com molho madeira de cabernet tinto e champignon. Finalizado com salsinha fresca.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, legumes salteados e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Filé mignon acebolado</span>
+       <span class="item-price">181<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé mignon grelhado na chapa com cebolas na manteiga e shoyu.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Filé mignon à Parmegiana</span>
+       <span class="item-price">199<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé mignon à milanesa com molho de tomate, milho, ervilha, queijo muçarela e queijo parmesão.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Strogonoff de carne</span>
+       <span class="item-price">207<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Cubos de filé mignon servidos em um molho especial de creme de leite e champignon.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </div>
+    <p class="page-note">Meio prato: 65% do valor (exceto para mesas individuais)</p>
+   </section>
+
+
+   <section class="page">
+    <div class="page-header">
+     <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+    </div>
+    <section class="menu-section">
+     <h2 class="section-title">Frango</h2>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Frango grelhado</span>
+       <span class="item-price">118<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de peito de frango grelhado na chapa.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, legumes salteados e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Frango à milanesa</span>
+       <span class="item-price">118<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">Filé de peito de frango à milanesa tradicional.</p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Frango à Romana</span>
+       <span class="item-price">141<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peito de frango grelhado na chapa, ao molho branco com ervilhas, gratinado com queijo muçarela e parmesão.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+     <div class="menu-item">
+      <div class="item-line">
+       <span class="item-name">Frango à Parmegiana</span>
+       <span class="item-price">142<span class="price-cents">,00</span></span>
+      </div>
+      <p class="item-desc">
+       Filé de peito de frango à milanesa, com molho de tomate, milho, ervilha, queijo muçarela e queijo parmesão.
+      </p>
+      <p class="item-extra"><strong>Acompanhamentos:</strong> Arroz, fritas e salada.</p>
+     </div>
+    </section>
+   </section>
+
+
+      <section class="page page-beverages">
+        <div class="page-header">
+          <img src="./logo.svg" alt="Restaurante Marinheiro’s" />
+        </div>
+        <section class="menu-section">
+          <h2 class="section-title">Bebidas</h2>
+          <div class="menu-columns">
+            <div class="menu-item">
+              <div class="item-line">
+                <span class="item-name">Suco</span>
+                <span class="item-price">13<span class="price-cents">,00</span></span>
+              </div>
+              <p class="item-desc">
+                <span class="item-extra">Abacaxi</span><br />
+                <span class="item-extra">Laranja</span><br />
+                <span class="item-extra">Acerola</span><br />
+                <span class="item-extra">Limão</span><br />
+                <span class="item-extra">Maracujá</span><br />
+                <span class="item-extra">Morango</span>
+              </p>
+            </div>
+            <div class="menu-item">
+              <div class="item-line">
+                <span class="item-name">Refrigerante</span>
+                <span class="item-price">8<span class="price-cents">,00</span></span>
+              </div>
+              <p class="item-desc">
+                <span class="item-extra">Coca-Cola</span><br />
+                <span class="item-extra">Coca-Cola Zero</span><br />
+                <span class="item-extra">Guaraná</span><br />
+                <span class="item-extra">Guaraná Zero</span><br />
+                <span class="item-extra">Fanta Uva</span><br />
+                <span class="item-extra">Fanta Laranja</span><br />
+                <span class="item-extra">Sprite</span><br />
+                <span class="item-extra">Tônica</span><br />
+                <span class="item-extra">H2O</span><br />
+              </p>
+            </div>
+            <div class="menu-item">
+              <div class="item-line">
+                <span class="item-name">Cerveja</span>
+                <span class="item-price">22<span class="price-cents">,00</span></span>
+              </div>
+              <p class="item-desc">
+                <span class="item-extra">Original</span><br />
+                <span class="item-extra">Heineken</span>
+              </p>
+            </div>
+            <div class="menu-item">
+              <div class="item-line">
+                <span class="item-name">Caipirinha</span>
+              </div>
+              <div class="price-list">
+                <div><span class="item-extra">Vodka</span><span class="item-price">29<span class="price-cents">,00</span></span></div>
+                <div><span class="item-extra">Cachaça</span><span class="item-price">25<span class="price-cents">,00</span></span></div>
+                <div><span class="item-extra">Steinhaeger</span><span class="item-price">32<span class="price-cents">,00</span></span></div>
+                <div><span class="item-extra">Absolut</span><span class="item-price">40<span class="price-cents">,00</span></span></div>
+              </div>
+            </div>
+            <div class="menu-item">
+              <div class="item-line">
+                <span class="item-name">Long neck</span>
+                <span class="item-price">15<span class="price-cents">,00</span></span>
+              </div>
+              <p class="item-desc">
+                <span class="item-extra">Heineken</span><br />
+                <span class="item-extra">Malzbier</span>
+              </p>
+            </div>
+            <div class="menu-item">
+              <div class="item-line">
+                <span class="item-name">Água</span>
+                <span class="item-price">5<span class="price-cents">,00</span></span>
+              </div>
+              <p class="item-desc">
+                <span class="item-extra">Água com gás</span><br />
+                <span class="item-extra">Água sem gás</span>
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+  </main>
+ </body>
+</html>
