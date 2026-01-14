@@ -1,1 +1,19 @@
+# Build artifacts
 *.pdf
+dist/
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs & temp files
+*.log
+*.tmp
